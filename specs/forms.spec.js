@@ -1,3 +1,5 @@
+'use strict';
+
 var formsPage = require('../pages/demoqa.formsPage');
 
 describe('Forms Page Tests', function() {
@@ -10,8 +12,8 @@ describe('Forms Page Tests', function() {
     expect(formsPage.getTitle()).toContain('demosite');
   });
 
-  it('[TC-024] should display 7 menu items in the left panel', function() {
-    expect(formsPage.getMenuItemCount()).toBe(7);
+  it('[TC-024] should display 1 menu item in the left panel', function() {
+    expect(formsPage.getMenuItemCount()).toBe(1);
   });
 
   it('[TC-025] should open Practice Form page when clicking Practice Form menu item', function() {

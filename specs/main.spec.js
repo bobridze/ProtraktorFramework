@@ -1,3 +1,5 @@
+'use strict';
+
 var mainPage = require('../pages/demoqa.mainPage');
 
 describe('Main Page Tests', function() {

@@ -1,1 +1,13 @@
+# Dependencies
 node_modules/
+
+# Generated at runtime
+logs/
+screenshots/
+
+# Lock file
+package-lock.json
+
+# Debug logs
+npm-debug.log
+npm-debug.log.*

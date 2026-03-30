@@ -1,3 +1,5 @@
+'use strict';
+
 var elementsPage = require('../pages/demoqa.elementsPage');
 
 describe('Elements Page Tests', function() {
@@ -49,10 +51,6 @@ describe('Elements Page Tests', function() {
     expect(browser.getCurrentUrl()).toContain('https://demoqa.com/broken');
   });
 
-  it('[TC-012] should FAIL because of incorrect footer text', function() {
-    expect(elementsPage.getFooterText()).toContain('Wrong footer text');
-  });
-
   it('[TC-010] should open Upload and Download page when clicking that menu item', function() {
     elementsPage.clickMenuItem(elementsPage.uploadDownloadMenuItem);
     expect(browser.getCurrentUrl()).toContain('https://demoqa.com/upload-download');
@@ -63,7 +61,7 @@ describe('Elements Page Tests', function() {
     expect(browser.getCurrentUrl()).toContain('https://demoqa.com/dynamic-properties');
   });
 
-  it('[TC-022] should display correct footer text', function() {
+  it('[TC-012] should display correct footer text', function() {
     expect(elementsPage.getFooterText()).toContain('TOOLSQA.COM | ALL RIGHTS RESERVED');
   });
 
