@@ -26,6 +26,7 @@ class BasePage {
   }
 
   getPageHeaderText() {
+    waitHelper.waitForPresence(this.pageHeader);
     return this.pageHeader.getText();
   }
 

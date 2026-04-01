@@ -9,7 +9,7 @@ exports.config = {
   framework: 'jasmine',
   directConnect: true,
   baseUrl: 'https://demoqa.com',
-  specs: ['specs/main.spec.js', 'specs/elements.spec.js', 'specs/forms.spec.js'],
+  specs: ['specs/main.spec.js', 'specs/elements.spec.js', 'specs/forms.spec.js', 'specs/textBoxForm.spec.js'],
   chromeDriver: './node_modules/chromedriver/lib/chromedriver/chromedriver.exe',
   capabilities: {
     browserName: 'chrome',
