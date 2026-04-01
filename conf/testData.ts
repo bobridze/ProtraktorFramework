@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = {
+export const testData = {
   baseUrl: 'https://demoqa.com',
 
   expectedTitle: 'demosite',
@@ -16,7 +14,7 @@ module.exports = {
     'Widgets':                  '/widgets',
     'Interactions':             '/interaction',
     'Book Store Application':   '/books'
-  },
+  } as { [key: string]: string },
 
   elementMenuPages: {
     'Text Box':             '/text-box',
@@ -28,5 +26,5 @@ module.exports = {
     'Broken Links - Images': '/broken',
     'Upload and Download':  '/upload-download',
     'Dynamic Properties':   '/dynamic-properties'
-  }
+  } as { [key: string]: string }
 };

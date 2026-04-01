@@ -1,47 +1,53 @@
 # DemoQA Protractor Automation Test
 
-End-to-end test suite for [https://demoqa.com] built with **Protractor** + **Jasmine**, following the **Page Object Model** pattern.
+End-to-end test suite for [https://demoqa.com](https://demoqa.com) built with **Protractor** + **Jasmine** + **TypeScript**, following the **Page Object Model** pattern.
 
 ## Framework Structure
 
 ```
-├── protractor.conf.js          # Protractor config (directConnect, Jasmine, ChromeDriver)
+├── protractor.conf.ts          # Protractor config (directConnect, Jasmine, ChromeDriver)
+├── protractor.d.ts             # Type augmentations for Protractor + Jasmine
+├── tsconfig.json               # TypeScript compiler configuration
 ├── conf/
-│   └── testData.js             # Centralized test data and URL constants
+│   └── testData.ts             # Centralized test data and URL constants
 ├── helpers/
-│   ├── logger.js               # File + console logger with colour output
-│   └── waitHelper.js           # Reusable explicit-wait utilities
+│   ├── logger.ts               # File + console logger with colour output
+│   └── waitHelper.ts           # Reusable explicit-wait utilities
 ├── pages/
-│   ├── basePage.js             # Base page class (shared methods)
-│   ├── demoqa.mainPage.js      # Page object for the DemoQA Main page
-│   ├── demoqa.elementsPage.js  # Page object for the Elements page
-│   └── demoqa.formsPage.js     # Page object for the Forms page
+│   ├── basePage.ts             # Base page class (shared methods)
+│   ├── demoqa.mainPage.ts      # Page object for the DemoQA Main page
+│   ├── demoqa.elementsPage.ts  # Page object for the Elements page
+│   ├── demoqa.formsPage.ts     # Page object for the Forms page
+│   └── demoqa.textBoxPage.ts   # Page object for the Text Box page
 ├── specs/
-│   ├── main.spec.js            # Tests for the Main page
-│   ├── elements.spec.js        # Tests for the Elements page
-│   └── forms.spec.js           # Tests for the Forms page
+│   ├── main.spec.ts            # Tests for the Main page
+│   ├── elements.spec.ts        # Tests for the Elements page
+│   ├── forms.spec.ts           # Tests for the Forms page
+│   └── textBoxForm.spec.ts     # Tests for the Text Box form
+├── dist/                       # Compiled JS output (auto-generated)
 ├── screenshots/                # Auto-captured screenshots on test failure
 └── logs/
     └── test.log                # Runtime log output
 ```
 
+- **Language**: TypeScript — compiled to `dist/` before test execution.
 - **Runner**: Protractor with `directConnect: true` — no standalone WebDriver server required.
 - **Framework**: Jasmine (assertion library + test runner).
 - **Browser**: Chrome (via local `chromedriver`).
 - **Pattern**: Page Object Model — locators and actions are encapsulated in `pages/`, keeping specs clean.
-- **Base Page**: Common methods (`open`, `getTitle`, `scrollAndClick`, etc.) are inherited from `basePage.js`.
+- **Base Page**: Common methods (`open`, `getTitle`, `scrollAndClick`, etc.) are inherited from `basePage.ts`.
 - **Screenshots**: Automatically captured on test failure into `screenshots/`.
 
 ## Covered Tests
 
-### `main.spec.js` — Home Page
+### `main.spec.ts` — Home Page (TC-013 to TC-021)
 - Page title check
 - "Join Now" button navigates to Selenium Training page
 - Clicking each category card navigates to the correct URL:
   Elements, Forms, Alerts/Frame/Windows, Widgets, Interactions, Book Store Application
 - Footer text verification
 
-### `elements.spec.js` — Elements Section
+### `elements.spec.ts` — Elements Section (TC-001 to TC-012)
 - Page title check
 - Left-panel menu contains 9 items
 - Clicking each menu item navigates to the correct sub-page:
@@ -49,10 +55,16 @@ End-to-end test suite for [https://demoqa.com] built with **Protractor** + **Jas
   Broken Links – Images, Upload and Download, Dynamic Properties
 - Footer text verification
 
-### `forms.spec.js` — Forms Section
+### `forms.spec.ts` — Forms Section (TC-023 to TC-026)
 - Page title check
 - Left-panel menu item count
 - Practice Form navigation
+- Footer text verification
+
+### `textBoxForm.spec.ts` — Text Box Form (TC-027 to TC-039)
+- Page title and header check
+- **Positive**: Submit with all fields, individual fields, special characters
+- **Negative**: Empty form submit, invalid email formats (missing @, missing domain, spaces)
 - Footer text verification
 
 ## Setup
@@ -68,12 +80,9 @@ End-to-end test suite for [https://demoqa.com] built with **Protractor** + **Jas
 npm test
 ```
 
-Or directly:
-```
-npx protractor protractor.conf.js
-```
+This will compile TypeScript (`tsc`) and then run Protractor against the compiled output.
 
 ## Requirements
 
-- Node.js
+- Node.js (v16+)
 - Google Chrome browser

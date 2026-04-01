@@ -1,24 +1,22 @@
-'use strict';
+import { textBoxPage } from '../pages/demoqa.textBoxPage';
 
-var textBoxPage = require('../pages/demoqa.textBoxPage');
+describe('Text Box Page Tests', () => {
 
-describe('Text Box Page Tests', function() {
-
-  beforeEach(function() {
+  beforeEach(() => {
     textBoxPage.open();
   });
 
   // --- Positive Tests ---
 
-  it('[TC-027] should have the correct page title', function() {
+  it('[TC-027] should have the correct page title', () => {
     expect(textBoxPage.getTitle()).toContain('demosite');
   });
 
-  it('[TC-028] should display "Text Box" as page header', function() {
+  it('[TC-028] should display "Text Box" as page header', () => {
     expect(textBoxPage.textBoxHeader.getText()).toBe('Text Box');
   });
 
-  it('[TC-029] should submit form with all fields and display correct output', function() {
+  it('[TC-029] should submit form with all fields and display correct output', () => {
     textBoxPage.fillForm({
       fullName: 'John Doe',
       email: 'john.doe@example.com',
@@ -34,7 +32,7 @@ describe('Text Box Page Tests', function() {
     expect(textBoxPage.getOutputPermanentAddress()).toContain('456 Oak Avenue');
   });
 
-  it('[TC-030] should submit form with only Full Name and display output', function() {
+  it('[TC-030] should submit form with only Full Name and display output', () => {
     textBoxPage.fillFullName('Jane Smith');
     textBoxPage.clickSubmit();
 
@@ -42,7 +40,7 @@ describe('Text Box Page Tests', function() {
     expect(textBoxPage.getOutputName()).toContain('Jane Smith');
   });
 
-  it('[TC-031] should submit form with only Email and display output', function() {
+  it('[TC-031] should submit form with only Email and display output', () => {
     textBoxPage.fillEmail('test@domain.com');
     textBoxPage.clickSubmit();
 
@@ -50,7 +48,7 @@ describe('Text Box Page Tests', function() {
     expect(textBoxPage.getOutputEmail()).toContain('test@domain.com');
   });
 
-  it('[TC-032] should submit form with only Current Address and display output', function() {
+  it('[TC-032] should submit form with only Current Address and display output', () => {
     textBoxPage.fillCurrentAddress('789 Pine Road');
     textBoxPage.clickSubmit();
 
@@ -58,7 +56,7 @@ describe('Text Box Page Tests', function() {
     expect(textBoxPage.getOutputCurrentAddress()).toContain('789 Pine Road');
   });
 
-  it('[TC-033] should submit form with only Permanent Address and display output', function() {
+  it('[TC-033] should submit form with only Permanent Address and display output', () => {
     textBoxPage.fillPermanentAddress('101 Elm Boulevard');
     textBoxPage.clickSubmit();
 
@@ -66,7 +64,7 @@ describe('Text Box Page Tests', function() {
     expect(textBoxPage.getOutputPermanentAddress()).toContain('101 Elm Boulevard');
   });
 
-  it('[TC-034] should handle special characters in Full Name', function() {
+  it('[TC-034] should handle special characters in Full Name', () => {
     textBoxPage.fillForm({
       fullName: "O'Brien-Smith Jr.",
       email: 'obrien@example.com'
@@ -79,7 +77,7 @@ describe('Text Box Page Tests', function() {
 
   // --- Negative Tests ---
 
-  it('[TC-035] should not display output when submitting empty form', function() {
+  it('[TC-035] should not display output when submitting empty form', () => {
     textBoxPage.clickSubmit();
 
     expect(textBoxPage.outputBox.isPresent()).toBe(true);
@@ -87,7 +85,7 @@ describe('Text Box Page Tests', function() {
     expect(textBoxPage.outputEmail.isPresent()).toBe(false);
   });
 
-  it('[TC-036] should reject invalid email format (missing @)', function() {
+  it('[TC-036] should reject invalid email format (missing @)', () => {
     textBoxPage.fillForm({
       fullName: 'Test User',
       email: 'invalid-email'
@@ -97,7 +95,7 @@ describe('Text Box Page Tests', function() {
     expect(textBoxPage.emailInput.getAttribute('class')).toContain('field-error');
   });
 
-  it('[TC-037] should reject invalid email format (missing domain)', function() {
+  it('[TC-037] should reject invalid email format (missing domain)', () => {
     textBoxPage.fillForm({
       fullName: 'Test User',
       email: 'user@'
@@ -107,7 +105,7 @@ describe('Text Box Page Tests', function() {
     expect(textBoxPage.emailInput.getAttribute('class')).toContain('field-error');
   });
 
-  it('[TC-038] should reject invalid email format (spaces)', function() {
+  it('[TC-038] should reject invalid email format (spaces)', () => {
     textBoxPage.fillForm({
       fullName: 'Test User',
       email: 'user name@example.com'
@@ -117,7 +115,7 @@ describe('Text Box Page Tests', function() {
     expect(textBoxPage.emailInput.getAttribute('class')).toContain('field-error');
   });
 
-  it('[TC-039] should display correct footer text', function() {
+  it('[TC-039] should display correct footer text', () => {
     expect(textBoxPage.getFooterText()).toContain('TOOLSQA.COM | ALL RIGHTS RESERVED');
   });
 

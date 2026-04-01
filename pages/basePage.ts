@@ -1,15 +1,18 @@
-'use strict';
+import { browser, element, by, ElementFinder } from 'protractor';
+import { waitHelper } from '../helpers/waitHelper';
 
-var waitHelper = require('../helpers/waitHelper');
+export class BasePage {
+  url: string;
+  footer: ElementFinder;
+  pageHeader: ElementFinder;
 
-class BasePage {
-  constructor(url) {
+  constructor(url: string) {
     this.url = url;
     this.footer = element(by.css('footer'));
     this.pageHeader = element(by.css('.main-header'));
   }
 
-  open() {
+  open(): void {
     browser.get(this.url);
   }
 
@@ -30,7 +33,7 @@ class BasePage {
     return this.pageHeader.getText();
   }
 
-  scrollAndClick(el) {
+  scrollAndClick(el: ElementFinder): void {
     waitHelper.waitForPresence(el);
     browser.executeScript(
       'arguments[0].scrollIntoView({block: "center"}); arguments[0].click();',
@@ -38,5 +41,3 @@ class BasePage {
     );
   }
 }
-
-module.exports = BasePage;

@@ -1,12 +1,21 @@
-'use strict';
-
-var BasePage = require('./basePage');
+import { element, by, ElementFinder, ElementArrayFinder } from 'protractor';
+import { BasePage } from './basePage';
 
 class DemoQAElementsPage extends BasePage {
+  menuItems: ElementArrayFinder;
+  textBoxMenuItem: ElementFinder;
+  checkBoxMenuItem: ElementFinder;
+  radioButtonMenuItem: ElementFinder;
+  webTablesMenuItem: ElementFinder;
+  buttonsMenuItem: ElementFinder;
+  linksMenuItem: ElementFinder;
+  brokenLinksMenuItem: ElementFinder;
+  uploadDownloadMenuItem: ElementFinder;
+  dynamicPropsMenuItem: ElementFinder;
+
   constructor() {
     super('https://demoqa.com/elements');
 
-    // Left-side menu items (first group = Elements)
     this.menuItems = element.all(by.css('.element-group:first-of-type .element-list .menu-list .btn'));
     this.textBoxMenuItem       = element(by.xpath('//span[normalize-space(text())="Text Box"]/..'));
     this.checkBoxMenuItem      = element(by.xpath('//span[normalize-space(text())="Check Box"]/..'));
@@ -19,7 +28,7 @@ class DemoQAElementsPage extends BasePage {
     this.dynamicPropsMenuItem  = element(by.xpath('//span[normalize-space(text())="Dynamic Properties"]/..'));
   }
 
-  clickMenuItem(menuItem) {
+  clickMenuItem(menuItem: ElementFinder): void {
     this.scrollAndClick(menuItem);
   }
 
@@ -28,4 +37,4 @@ class DemoQAElementsPage extends BasePage {
   }
 }
 
-module.exports = new DemoQAElementsPage();
+export const elementsPage = new DemoQAElementsPage();

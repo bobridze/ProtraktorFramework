@@ -1,31 +1,28 @@
-'use strict';
+import { ElementFinder, browser, protractor } from 'protractor';
 
-var EC     = protractor.ExpectedConditions;
-var logger = require('./logger');
-var DEFAULT_TIMEOUT = 5000;
+const EC = protractor.ExpectedConditions;
+const DEFAULT_TIMEOUT = 5000;
 
-var waitHelper = {
+export const waitHelper = {
 
-  waitForVisible: function (el, timeout) {
+  waitForVisible(el: ElementFinder, timeout?: number) {
     return browser.wait(EC.visibilityOf(el), timeout || DEFAULT_TIMEOUT,
       'Timed out waiting for element to be visible');
   },
 
-  waitForClickable: function (el, timeout) {
+  waitForClickable(el: ElementFinder, timeout?: number) {
     return browser.wait(EC.elementToBeClickable(el), timeout || DEFAULT_TIMEOUT,
       'Timed out waiting for element to be clickable');
   },
 
-  waitForPresence: function (el, timeout) {
+  waitForPresence(el: ElementFinder, timeout?: number) {
     return browser.wait(EC.presenceOf(el), timeout || DEFAULT_TIMEOUT,
       'Timed out waiting for element to be present in DOM');
   },
 
-  waitForUrlContains: function (urlPart, timeout) {
+  waitForUrlContains(urlPart: string, timeout?: number) {
     return browser.wait(EC.urlContains(urlPart), timeout || DEFAULT_TIMEOUT,
       'Timed out waiting for URL to contain: ' + urlPart);
   }
 
 };
-
-module.exports = waitHelper;

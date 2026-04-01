@@ -1,17 +1,18 @@
-'use strict';
-
-var BasePage = require('./basePage');
+import { element, by, ElementFinder, ElementArrayFinder } from 'protractor';
+import { BasePage } from './basePage';
 
 class DemoQAFormsPage extends BasePage {
+  menuItems: ElementArrayFinder;
+  practiceFormMenuItem: ElementFinder;
+
   constructor() {
     super('https://demoqa.com/forms');
 
-    // Left-side menu items (Forms group — 2nd element-group)
     this.menuItems            = element.all(by.css('.element-group:nth-of-type(2) .element-list .menu-list .btn'));
     this.practiceFormMenuItem = element(by.xpath('//span[normalize-space(text())="Practice Form"]/..'));
   }
 
-  clickMenuItem(menuItem) {
+  clickMenuItem(menuItem: ElementFinder): void {
     this.scrollAndClick(menuItem);
   }
 
@@ -20,4 +21,4 @@ class DemoQAFormsPage extends BasePage {
   }
 }
 
-module.exports = new DemoQAFormsPage();
+export const formsPage = new DemoQAFormsPage();

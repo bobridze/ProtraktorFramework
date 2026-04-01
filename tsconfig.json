@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "target": "ES2018",
+    "module": "commonjs",
+    "lib": ["ES2018"],
+    "outDir": "./dist",
+    "rootDir": ".",
+    "strict": false,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "declaration": false,
+    "sourceMap": false,
+    "types": ["jasmine", "node"]
+  },
+  "include": [
+    "protractor.d.ts",
+    "helpers/**/*.ts",
+    "pages/**/*.ts",
+    "specs/**/*.ts",
+    "conf/**/*.ts",
+    "protractor.conf.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}

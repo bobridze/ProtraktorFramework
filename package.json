@@ -3,10 +3,16 @@
   "version": "1.0.0",
   "description": "Protractor automation test for demoqa website",
   "scripts": {
-    "test": "protractor protractor.conf.js"
+    "pretest": "tsc",
+    "test": "protractor dist/protractor.conf.js"
   },
   "dependencies": {
     "chromedriver": "^145.0.6",
     "protractor": "^7.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "@types/jasmine": "^5.1.0",
+    "@types/node": "^20.11.0"
   }
 }
