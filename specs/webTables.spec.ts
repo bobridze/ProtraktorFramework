@@ -61,14 +61,15 @@ describe('Web Tables Page Tests', () => {
       department: 'QA'
     });
     webTablesPage.clickSubmit();
+    webTablesPage.waitForFormClosed();
 
-    webTablesPage.search('Alice');
-    expect(webTablesPage.getCellText(0, 0)).toBe('Alice');
-    expect(webTablesPage.getCellText(0, 1)).toBe('Wonder');
-    expect(webTablesPage.getCellText(0, 2)).toBe('25');
-    expect(webTablesPage.getCellText(0, 3)).toBe('alice@example.com');
-    expect(webTablesPage.getCellText(0, 4)).toBe('60000');
-    expect(webTablesPage.getCellText(0, 5)).toBe('QA');
+    expect(webTablesPage.getRowCount()).toBe(4);
+    expect(webTablesPage.getCellText(3, 0)).toBe('Alice');
+    expect(webTablesPage.getCellText(3, 1)).toBe('Wonder');
+    expect(webTablesPage.getCellText(3, 2)).toBe('25');
+    expect(webTablesPage.getCellText(3, 3)).toBe('alice@example.com');
+    expect(webTablesPage.getCellText(3, 4)).toBe('60000');
+    expect(webTablesPage.getCellText(3, 5)).toBe('QA');
   });
 
   it('[TC-060] should search and find existing record by first name', () => {
@@ -130,11 +131,12 @@ describe('Web Tables Page Tests', () => {
   });
 
   it('[TC-068] should clear search and show all records', () => {
+    const initialCount = webTablesPage.getRowCount();
     webTablesPage.search('Cierra');
     expect(webTablesPage.getRowCount()).toBe(1);
 
     webTablesPage.clearSearch();
-    expect(webTablesPage.getRowCount()).toBe(3);
+    expect(webTablesPage.getRowCount()).toEqual(initialCount);
   });
 
   it('[TC-069] should open registration form when clicking Add', () => {

@@ -1,4 +1,4 @@
-import { browser, element, by, ElementFinder, ElementArrayFinder } from 'protractor';
+import { browser, element, by, ElementFinder, ElementArrayFinder, protractor } from 'protractor';
 import { BasePage } from './basePage';
 import { waitHelper } from '../helpers/waitHelper';
 
@@ -38,11 +38,11 @@ class DemoQAWebTablesPage extends BasePage {
 
     this.addButton    = element(by.id('addNewRecordButton'));
     this.searchBox    = element(by.id('searchBox'));
-    this.tableRows    = element.all(by.css('.rt-tbody .rt-tr-group'));
-    this.tableHeaders = element.all(by.css('.rt-thead .rt-th'));
+    this.tableRows    = element.all(by.css('table tbody tr'));
+    this.tableHeaders = element.all(by.css('table thead th'));
 
     // Registration form modal
-    this.registrationForm = element(by.id('registration-form-modal'));
+    this.registrationForm = element(by.css('.modal.show'));
     this.firstNameInput   = element(by.id('firstName'));
     this.lastNameInput    = element(by.id('lastName'));
     this.emailInput       = element(by.id('userEmail'));
@@ -52,10 +52,10 @@ class DemoQAWebTablesPage extends BasePage {
     this.submitButton     = element(by.id('submit'));
 
     // Pagination
-    this.previousButton = element(by.css('.-previous button'));
-    this.nextButton     = element(by.css('.-next button'));
-    this.pageInput      = element(by.css('.-pageInfo .-pageJump input'));
-    this.pageSizeSelect = element(by.css('.-pageSizeOptions select'));
+    this.previousButton = element(by.xpath('//button[text()="Previous"]'));
+    this.nextButton     = element(by.xpath('//button[text()="Next"]'));
+    this.pageInput      = element(by.css('.pagination input'));
+    this.pageSizeSelect = element(by.css('select'));
   }
 
   clickAdd(): void {
@@ -71,6 +71,7 @@ class DemoQAWebTablesPage extends BasePage {
 
   clearSearch(): void {
     this.searchBox.clear();
+    this.searchBox.sendKeys(' ', protractor.Key.BACK_SPACE);
   }
 
   fillFirstName(value: string): void {
@@ -118,10 +119,16 @@ class DemoQAWebTablesPage extends BasePage {
     this.scrollAndClick(this.submitButton);
   }
 
+  waitForFormClosed(): void {
+    browser.wait(
+      protractor.ExpectedConditions.invisibilityOf(this.registrationForm),
+      5000,
+      'Timed out waiting for registration form to close'
+    );
+  }
+
   getRowCount() {
-    return element.all(by.css('.rt-tbody .rt-tr-group .rt-td:first-child')).filter(
-      cell => cell.getText().then(text => text.trim() !== '')
-    ).count();
+    return this.tableRows.count();
   }
 
   getRowText(rowIndex: number) {
@@ -129,16 +136,16 @@ class DemoQAWebTablesPage extends BasePage {
   }
 
   getCellText(rowIndex: number, colIndex: number) {
-    return this.tableRows.get(rowIndex).all(by.css('.rt-td')).get(colIndex).getText();
+    return this.tableRows.get(rowIndex).all(by.css('td')).get(colIndex).getText();
   }
 
   clickEdit(rowIndex: number): void {
-    const editBtn = this.tableRows.get(rowIndex).element(by.css('[title="Edit"]'));
+    const editBtn = this.tableRows.get(rowIndex).element(by.css('span[title="Edit"]'));
     this.scrollAndClick(editBtn);
   }
 
   clickDelete(rowIndex: number): void {
-    const deleteBtn = this.tableRows.get(rowIndex).element(by.css('[title="Delete"]'));
+    const deleteBtn = this.tableRows.get(rowIndex).element(by.css('span[title="Delete"]'));
     this.scrollAndClick(deleteBtn);
   }
 

@@ -9,7 +9,7 @@ export class BasePage {
   constructor(url: string) {
     this.url = url;
     this.footer = element(by.css('footer'));
-    this.pageHeader = element(by.css('.main-header'));
+    this.pageHeader = element(by.css('h1.text-center'));
   }
 
   open(): void {
