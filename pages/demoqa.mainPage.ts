@@ -16,13 +16,13 @@ class DemoQAMainPage extends BasePage {
     this.categoryCards = element.all(by.css('.card'));
   }
 
-  clickJoinNow(): void {
-    this.scrollAndClick(this.seleniumTrainingLink);
+  async clickJoinNow(): Promise<void> {
+    await this.scrollAndClick(this.seleniumTrainingLink);
   }
 
-  clickCategoryCard(cardName: string): void {
+  async clickCategoryCard(cardName: string): Promise<void> {
     const card = element(by.xpath(`//a[.//h5[normalize-space(text())="${cardName}"]]`));
-    this.scrollAndClick(card);
+    await this.scrollAndClick(card);
   }
 
   getCategoryCardCount() {

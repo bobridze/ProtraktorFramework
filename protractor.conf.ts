@@ -6,7 +6,8 @@ const SCREENSHOT_DIR = path.join(__dirname, '..', 'screenshots');
 
 export const config: Config = {
   framework: 'jasmine',
-  directConnect: true,
+  directConnect: false,
+  seleniumAddress: 'http://localhost:4444/wd/hub',
   baseUrl: 'https://demoqa.com',
   specs: ['specs/*.spec.js'],
   chromeDriver: path.join(__dirname, '..', 'node_modules', 'chromedriver', 'lib', 'chromedriver', 'chromedriver.exe'),
@@ -14,7 +15,9 @@ export const config: Config = {
     browserName: 'chrome',
     chromeOptions: {
       args: ['--no-sandbox', '--disable-dev-shm-usage']
-    }
+    },
+    shardTestFiles: true,
+    maxInstances: 2
   },
   onPrepare() {
     browser.waitForAngularEnabled(false);

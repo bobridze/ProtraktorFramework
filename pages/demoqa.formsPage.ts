@@ -12,8 +12,8 @@ class DemoQAFormsPage extends BasePage {
     this.practiceFormMenuItem = element(by.xpath('//span[normalize-space(text())="Practice Form"]/..'));
   }
 
-  clickMenuItem(menuItem: ElementFinder): void {
-    this.scrollAndClick(menuItem);
+  async clickMenuItem(menuItem: ElementFinder): Promise<void> {
+    await this.scrollAndClick(menuItem);
   }
 
   getMenuItemCount() {

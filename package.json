@@ -7,12 +7,13 @@
     "test": "protractor dist/protractor.conf.js"
   },
   "dependencies": {
-    "chromedriver": "^145.0.6",
     "protractor": "^7.0.0"
   },
   "devDependencies": {
-    "typescript": "^5.4.0",
     "@types/jasmine": "^5.1.0",
-    "@types/node": "^20.11.0"
+    "@types/node": "^20.11.0",
+    "selenium-standalone": "^10.0.2",
+    "typescript": "^5.4.0",
+    "webdriver-manager": "^12.1.9"
   }
 }

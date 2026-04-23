@@ -38,39 +38,39 @@ class DemoQATextBoxPage extends BasePage {
     this.outputPermanentAddress = element(by.css('#output #permanentAddress'));
   }
 
-  fillFullName(name: string): void {
+  async fillFullName(name: string): Promise<void> {
     waitHelper.waitForVisible(this.fullNameInput);
-    this.fullNameInput.clear();
-    this.fullNameInput.sendKeys(name);
+    await this.fullNameInput.clear();
+    await this.fullNameInput.sendKeys(name);
   }
 
-  fillEmail(email: string): void {
+  async fillEmail(email: string): Promise<void> {
     waitHelper.waitForVisible(this.emailInput);
-    this.emailInput.clear();
-    this.emailInput.sendKeys(email);
+    await this.emailInput.clear();
+    await this.emailInput.sendKeys(email);
   }
 
-  fillCurrentAddress(address: string): void {
+  async fillCurrentAddress(address: string): Promise<void> {
     waitHelper.waitForVisible(this.currentAddressInput);
-    this.currentAddressInput.clear();
-    this.currentAddressInput.sendKeys(address);
+    await this.currentAddressInput.clear();
+    await this.currentAddressInput.sendKeys(address);
   }
 
-  fillPermanentAddress(address: string): void {
+  async fillPermanentAddress(address: string): Promise<void> {
     waitHelper.waitForVisible(this.permanentAddressInput);
-    this.permanentAddressInput.clear();
-    this.permanentAddressInput.sendKeys(address);
+    await this.permanentAddressInput.clear();
+    await this.permanentAddressInput.sendKeys(address);
   }
 
-  fillForm(data: TextBoxFormData): void {
-    if (data.fullName) this.fillFullName(data.fullName);
-    if (data.email) this.fillEmail(data.email);
-    if (data.currentAddress) this.fillCurrentAddress(data.currentAddress);
-    if (data.permanentAddress) this.fillPermanentAddress(data.permanentAddress);
+  async fillForm(data: TextBoxFormData): Promise<void> {
+    if (data.fullName) await this.fillFullName(data.fullName);
+    if (data.email) await this.fillEmail(data.email);
+    if (data.currentAddress) await this.fillCurrentAddress(data.currentAddress);
+    if (data.permanentAddress) await this.fillPermanentAddress(data.permanentAddress);
   }
 
-  clickSubmit(): void {
-    this.scrollAndClick(this.submitButton);
+  async clickSubmit(): Promise<void> {
+    await this.scrollAndClick(this.submitButton);
   }
 
   getOutputName() {

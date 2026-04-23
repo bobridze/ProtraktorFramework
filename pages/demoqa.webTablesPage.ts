@@ -58,69 +58,69 @@ class DemoQAWebTablesPage extends BasePage {
     this.pageSizeSelect = element(by.css('select'));
   }
 
-  clickAdd(): void {
+  async clickAdd(): Promise<void> {
     waitHelper.waitForClickable(this.addButton);
-    this.addButton.click();
+    await this.addButton.click();
   }
 
-  search(text: string): void {
+  async search(text: string): Promise<void> {
     waitHelper.waitForVisible(this.searchBox);
-    this.searchBox.clear();
-    this.searchBox.sendKeys(text);
+    await this.searchBox.clear();
+    await this.searchBox.sendKeys(text);
   }
 
-  clearSearch(): void {
-    this.searchBox.clear();
-    this.searchBox.sendKeys(' ', protractor.Key.BACK_SPACE);
+  async clearSearch(): Promise<void> {
+    await this.searchBox.clear();
+    await this.searchBox.sendKeys(' ', protractor.Key.BACK_SPACE);
   }
 
-  fillFirstName(value: string): void {
+  async fillFirstName(value: string): Promise<void> {
     waitHelper.waitForVisible(this.firstNameInput);
-    this.firstNameInput.clear();
-    this.firstNameInput.sendKeys(value);
+    await this.firstNameInput.clear();
+    await this.firstNameInput.sendKeys(value);
   }
 
-  fillLastName(value: string): void {
+  async fillLastName(value: string): Promise<void> {
     waitHelper.waitForVisible(this.lastNameInput);
-    this.lastNameInput.clear();
-    this.lastNameInput.sendKeys(value);
+    await this.lastNameInput.clear();
+    await this.lastNameInput.sendKeys(value);
   }
 
-  fillEmail(value: string): void {
-    this.emailInput.clear();
-    this.emailInput.sendKeys(value);
+  async fillEmail(value: string): Promise<void> {
+    await this.emailInput.clear();
+    await this.emailInput.sendKeys(value);
   }
 
-  fillAge(value: string): void {
-    this.ageInput.clear();
-    this.ageInput.sendKeys(value);
+  async fillAge(value: string): Promise<void> {
+    await this.ageInput.clear();
+    await this.ageInput.sendKeys(value);
   }
 
-  fillSalary(value: string): void {
-    this.salaryInput.clear();
-    this.salaryInput.sendKeys(value);
+  async fillSalary(value: string): Promise<void> {
+    await this.salaryInput.clear();
+    await this.salaryInput.sendKeys(value);
   }
 
-  fillDepartment(value: string): void {
-    this.departmentInput.clear();
-    this.departmentInput.sendKeys(value);
+  async fillDepartment(value: string): Promise<void> {
+    await this.departmentInput.clear();
+    await this.departmentInput.sendKeys(value);
   }
 
-  fillForm(data: RegistrationFormData): void {
-    if (data.firstName) this.fillFirstName(data.firstName);
-    if (data.lastName) this.fillLastName(data.lastName);
-    if (data.email) this.fillEmail(data.email);
-    if (data.age) this.fillAge(data.age);
-    if (data.salary) this.fillSalary(data.salary);
-    if (data.department) this.fillDepartment(data.department);
+  async fillForm(data: RegistrationFormData): Promise<void> {
+    if (data.firstName) await this.fillFirstName(data.firstName);
+    if (data.lastName) await this.fillLastName(data.lastName);
+    if (data.email) await this.fillEmail(data.email);
+    if (data.age) await this.fillAge(data.age);
+    if (data.salary) await this.fillSalary(data.salary);
+    if (data.department) await this.fillDepartment(data.department);
   }
 
-  clickSubmit(): void {
-    this.scrollAndClick(this.submitButton);
+  async clickSubmit(): Promise<void> {
+    await this.scrollAndClick(this.submitButton);
   }
 
-  waitForFormClosed(): void {
-    browser.wait(
+  async waitForFormClosed(): Promise<void> {
+    await browser.wait(
       protractor.ExpectedConditions.invisibilityOf(this.registrationForm),
       5000,
       'Timed out waiting for registration form to close'
@@ -139,14 +139,14 @@ class DemoQAWebTablesPage extends BasePage {
     return this.tableRows.get(rowIndex).all(by.css('td')).get(colIndex).getText();
   }
 
-  clickEdit(rowIndex: number): void {
+  async clickEdit(rowIndex: number): Promise<void> {
     const editBtn = this.tableRows.get(rowIndex).element(by.css('span[title="Edit"]'));
-    this.scrollAndClick(editBtn);
+    await this.scrollAndClick(editBtn);
   }
 
-  clickDelete(rowIndex: number): void {
+  async clickDelete(rowIndex: number): Promise<void> {
     const deleteBtn = this.tableRows.get(rowIndex).element(by.css('span[title="Delete"]'));
-    this.scrollAndClick(deleteBtn);
+    await this.scrollAndClick(deleteBtn);
   }
 
   getHeaderTexts() {

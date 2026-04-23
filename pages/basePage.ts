@@ -12,8 +12,8 @@ export class BasePage {
     this.pageHeader = element(by.css('h1.text-center'));
   }
 
-  open(): void {
-    browser.get(this.url);
+  async open(): Promise<void> {
+    await browser.get(this.url);
   }
 
   getTitle() {
@@ -33,9 +33,9 @@ export class BasePage {
     return this.pageHeader.getText();
   }
 
-  scrollAndClick(el: ElementFinder): void {
+  async scrollAndClick(el: ElementFinder): Promise<void> {
     waitHelper.waitForPresence(el);
-    browser.executeScript(
+    await browser.executeScript(
       'arguments[0].scrollIntoView({block: "center"}); arguments[0].click();',
       el.getWebElement()
     );

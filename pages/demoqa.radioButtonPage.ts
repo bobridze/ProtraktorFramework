@@ -23,12 +23,12 @@ class DemoQARadioButtonPage extends BasePage {
     this.successText      = element(by.css('.mt-3'));
   }
 
-  selectYes(): void {
-    this.scrollAndClick(this.yesLabel);
+  async selectYes(): Promise<void> {
+    await this.scrollAndClick(this.yesLabel);
   }
 
-  selectImpressive(): void {
-    this.scrollAndClick(this.impressiveLabel);
+  async selectImpressive(): Promise<void> {
+    await this.scrollAndClick(this.impressiveLabel);
   }
 
   getSuccessText() {

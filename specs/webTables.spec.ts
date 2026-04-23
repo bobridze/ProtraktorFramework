@@ -3,41 +3,41 @@ import { webTablesPage } from '../pages/demoqa.webTablesPage';
 
 describe('Web Tables Page Tests', () => {
 
-  beforeEach(() => {
-    webTablesPage.open();
+  beforeEach(async () => {
+    await webTablesPage.open();
   });
 
   // --- Positive Tests ---
 
-  it('[TC-053] should have the correct page title', () => {
-    expect(webTablesPage.getTitle()).toContain('demosite');
+  it('[TC-053] should have the correct page title', async () => {
+    expect(await webTablesPage.getTitle()).toContain('demosite');
   });
 
-  it('[TC-054] should display "Web Tables" as page header', () => {
-    expect(webTablesPage.getPageHeaderText()).toBe('Web Tables');
+  it('[TC-054] should display "Web Tables" as page header', async () => {
+    expect(await webTablesPage.getPageHeaderText()).toBe('Web Tables');
   });
 
-  it('[TC-055] should display correct URL', () => {
-    expect(browser.getCurrentUrl()).toContain('https://demoqa.com/webtables');
+  it('[TC-055] should display correct URL', async () => {
+    expect(await browser.getCurrentUrl()).toContain('https://demoqa.com/webtables');
   });
 
-  it('[TC-056] should display 3 default records in the table', () => {
-    expect(webTablesPage.getRowCount()).toBe(3);
+  it('[TC-056] should display 3 default records in the table', async () => {
+    expect(await webTablesPage.getRowCount()).toBe(3);
   });
 
-  it('[TC-057] should display correct table headers', () => {
-    expect(webTablesPage.getHeaderTexts()).toContain('First Name');
-    expect(webTablesPage.getHeaderTexts()).toContain('Last Name');
-    expect(webTablesPage.getHeaderTexts()).toContain('Age');
-    expect(webTablesPage.getHeaderTexts()).toContain('Email');
-    expect(webTablesPage.getHeaderTexts()).toContain('Salary');
-    expect(webTablesPage.getHeaderTexts()).toContain('Department');
-    expect(webTablesPage.getHeaderTexts()).toContain('Action');
+  it('[TC-057] should display correct table headers', async () => {
+    expect(await webTablesPage.getHeaderTexts()).toContain('First Name');
+    expect(await webTablesPage.getHeaderTexts()).toContain('Last Name');
+    expect(await webTablesPage.getHeaderTexts()).toContain('Age');
+    expect(await webTablesPage.getHeaderTexts()).toContain('Email');
+    expect(await webTablesPage.getHeaderTexts()).toContain('Salary');
+    expect(await webTablesPage.getHeaderTexts()).toContain('Department');
+    expect(await webTablesPage.getHeaderTexts()).toContain('Action');
   });
 
-  it('[TC-058] should add a new record with all fields', () => {
-    webTablesPage.clickAdd();
-    webTablesPage.fillForm({
+  it('[TC-058] should add a new record with all fields', async () => {
+    await webTablesPage.clickAdd();
+    await webTablesPage.fillForm({
       firstName: 'John',
       lastName: 'Doe',
       email: 'john.doe@example.com',
@@ -45,14 +45,14 @@ describe('Web Tables Page Tests', () => {
       salary: '50000',
       department: 'Engineering'
     });
-    webTablesPage.clickSubmit();
+    await webTablesPage.clickSubmit();
 
-    expect(webTablesPage.getRowCount()).toBe(4);
+    expect(await webTablesPage.getRowCount()).toBe(4);
   });
 
-  it('[TC-059] should display new record data correctly in the table', () => {
-    webTablesPage.clickAdd();
-    webTablesPage.fillForm({
+  it('[TC-059] should display new record data correctly in the table', async () => {
+    await webTablesPage.clickAdd();
+    await webTablesPage.fillForm({
       firstName: 'Alice',
       lastName: 'Wonder',
       email: 'alice@example.com',
@@ -60,92 +60,92 @@ describe('Web Tables Page Tests', () => {
       salary: '60000',
       department: 'QA'
     });
-    webTablesPage.clickSubmit();
-    webTablesPage.waitForFormClosed();
+    await webTablesPage.clickSubmit();
+    await webTablesPage.waitForFormClosed();
 
-    expect(webTablesPage.getRowCount()).toBe(4);
-    expect(webTablesPage.getCellText(3, 0)).toBe('Alice');
-    expect(webTablesPage.getCellText(3, 1)).toBe('Wonder');
-    expect(webTablesPage.getCellText(3, 2)).toBe('25');
-    expect(webTablesPage.getCellText(3, 3)).toBe('alice@example.com');
-    expect(webTablesPage.getCellText(3, 4)).toBe('60000');
-    expect(webTablesPage.getCellText(3, 5)).toBe('QA');
+    expect(await webTablesPage.getRowCount()).toBe(4);
+    expect(await webTablesPage.getCellText(3, 0)).toBe('Alice');
+    expect(await webTablesPage.getCellText(3, 1)).toBe('Wonder');
+    expect(await webTablesPage.getCellText(3, 2)).toBe('25');
+    expect(await webTablesPage.getCellText(3, 3)).toBe('alice@example.com');
+    expect(await webTablesPage.getCellText(3, 4)).toBe('60000');
+    expect(await webTablesPage.getCellText(3, 5)).toBe('QA');
   });
 
-  it('[TC-060] should search and find existing record by first name', () => {
-    webTablesPage.search('Cierra');
-    expect(webTablesPage.getRowCount()).toBe(1);
-    expect(webTablesPage.getCellText(0, 0)).toBe('Cierra');
+  it('[TC-060] should search and find existing record by first name', async () => {
+    await webTablesPage.search('Cierra');
+    expect(await webTablesPage.getRowCount()).toBe(1);
+    expect(await webTablesPage.getCellText(0, 0)).toBe('Cierra');
   });
 
-  it('[TC-061] should search and find existing record by last name', () => {
-    webTablesPage.search('Cantrell');
-    expect(webTablesPage.getRowCount()).toBe(1);
-    expect(webTablesPage.getCellText(0, 1)).toBe('Cantrell');
+  it('[TC-061] should search and find existing record by last name', async () => {
+    await webTablesPage.search('Cantrell');
+    expect(await webTablesPage.getRowCount()).toBe(1);
+    expect(await webTablesPage.getCellText(0, 1)).toBe('Cantrell');
   });
 
-  it('[TC-062] should search and find existing record by email', () => {
-    webTablesPage.search('kierra@example.com');
-    expect(webTablesPage.getRowCount()).toBe(1);
-    expect(webTablesPage.getCellText(0, 3)).toBe('kierra@example.com');
+  it('[TC-062] should search and find existing record by email', async () => {
+    await webTablesPage.search('kierra@example.com');
+    expect(await webTablesPage.getRowCount()).toBe(1);
+    expect(await webTablesPage.getCellText(0, 3)).toBe('kierra@example.com');
   });
 
-  it('[TC-063] should search and find existing record by age', () => {
-    webTablesPage.search('39');
-    expect(webTablesPage.getRowCount()).toBe(1);
-    expect(webTablesPage.getCellText(0, 2)).toBe('39');
+  it('[TC-063] should search and find existing record by age', async () => {
+    await webTablesPage.search('39');
+    expect(await webTablesPage.getRowCount()).toBe(1);
+    expect(await webTablesPage.getCellText(0, 2)).toBe('39');
   });
 
-  it('[TC-064] should search and find existing record by salary', () => {
-    webTablesPage.search('12000');
-    expect(webTablesPage.getRowCount()).toBe(1);
-    expect(webTablesPage.getCellText(0, 4)).toBe('12000');
+  it('[TC-064] should search and find existing record by salary', async () => {
+    await webTablesPage.search('12000');
+    expect(await webTablesPage.getRowCount()).toBe(1);
+    expect(await webTablesPage.getCellText(0, 4)).toBe('12000');
   });
 
-  it('[TC-065] should search and find existing record by department', () => {
-    webTablesPage.search('Legal');
-    expect(webTablesPage.getRowCount()).toBe(1);
-    expect(webTablesPage.getCellText(0, 5)).toBe('Legal');
+  it('[TC-065] should search and find existing record by department', async () => {
+    await webTablesPage.search('Legal');
+    expect(await webTablesPage.getRowCount()).toBe(1);
+    expect(await webTablesPage.getCellText(0, 5)).toBe('Legal');
   });
 
-  it('[TC-066] should edit an existing record', () => {
-    webTablesPage.search('Cierra');
-    webTablesPage.clickEdit(0);
-    webTablesPage.fillFirstName('Updated');
-    webTablesPage.clickSubmit();
+  it('[TC-066] should edit an existing record', async () => {
+    await webTablesPage.search('Cierra');
+    await webTablesPage.clickEdit(0);
+    await webTablesPage.fillFirstName('Updated');
+    await webTablesPage.clickSubmit();
 
-    webTablesPage.clearSearch();
-    webTablesPage.search('Updated');
-    expect(webTablesPage.getRowCount()).toBe(1);
-    expect(webTablesPage.getCellText(0, 0)).toBe('Updated');
+    await webTablesPage.clearSearch();
+    await webTablesPage.search('Updated');
+    expect(await webTablesPage.getRowCount()).toBe(1);
+    expect(await webTablesPage.getCellText(0, 0)).toBe('Updated');
   });
 
-  it('[TC-067] should delete an existing record', () => {
-    webTablesPage.search('Cierra');
-    expect(webTablesPage.getRowCount()).toBe(1);
+  it('[TC-067] should delete an existing record', async () => {
+    await webTablesPage.search('Cierra');
+    expect(await webTablesPage.getRowCount()).toBe(1);
 
-    webTablesPage.clickDelete(0);
-    webTablesPage.clearSearch();
-    webTablesPage.search('Cierra');
-    expect(webTablesPage.getRowCount()).toBe(0);
+    await webTablesPage.clickDelete(0);
+    await webTablesPage.clearSearch();
+    await webTablesPage.search('Cierra');
+    expect(await webTablesPage.getRowCount()).toBe(0);
   });
 
-  it('[TC-068] should clear search and show all records', () => {
-    const initialCount = webTablesPage.getRowCount();
-    webTablesPage.search('Cierra');
-    expect(webTablesPage.getRowCount()).toBe(1);
+  it('[TC-068] should clear search and show all records', async () => {
+    const initialCount = await webTablesPage.getRowCount();
+    await webTablesPage.search('Cierra');
+    expect(await webTablesPage.getRowCount()).toBe(1);
 
-    webTablesPage.clearSearch();
-    expect(webTablesPage.getRowCount()).toEqual(initialCount);
+    await webTablesPage.clearSearch();
+    expect(await webTablesPage.getRowCount()).toEqual(initialCount);
   });
 
-  it('[TC-069] should open registration form when clicking Add', () => {
-    webTablesPage.clickAdd();
-    expect(webTablesPage.isFormDisplayed()).toBe(true);
+  it('[TC-069] should open registration form when clicking Add', async () => {
+    await webTablesPage.clickAdd();
+    expect(await webTablesPage.isFormDisplayed()).toBe(true);
   });
 
-  it('[TC-070] should display correct footer text', () => {
-    expect(webTablesPage.getFooterText()).toContain('TOOLSQA.COM | ALL RIGHTS RESERVED');
+  it('[TC-070] should display correct footer text', async () => {
+    expect(await webTablesPage.getFooterText()).toContain('TOOLSQA.COM | ALL RIGHTS RESERVED');
   });
 
   // --- Negative Tests ---

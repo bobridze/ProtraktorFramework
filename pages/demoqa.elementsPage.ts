@@ -28,8 +28,8 @@ class DemoQAElementsPage extends BasePage {
     this.dynamicPropsMenuItem  = element(by.xpath('//span[normalize-space(text())="Dynamic Properties"]/..'));
   }
 
-  clickMenuItem(menuItem: ElementFinder): void {
-    this.scrollAndClick(menuItem);
+  async clickMenuItem(menuItem: ElementFinder): Promise<void> {
+    await this.scrollAndClick(menuItem);
   }
 
   getMenuItemCount() {
